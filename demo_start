@@ -1,0 +1,5 @@
+#!/bin/sh
+set -x
+mkdir -p demo  2>/dev/null
+sudo umount demo 
+exec ./mount.sensefs demo --help

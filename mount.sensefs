@@ -1,0 +1,102 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'rfuse_ng'
+require 'rdebug/base'
+
+require 'sensefs/statvfs'
+
+$DEBUG = true
+
+class SenseStore < Hash
+end
+
+class SenseDir
+	def search path
+	end
+end
+
+class SenseFile
+	# it MUST NOT be modified inplace
+	# it is a link of blocks
+end
+
+class SenseBlock
+	def initialize
+		@index = nil
+	end
+end
+
+class SenseStore
+end
+
+
+class SenseFs < RFuse::Fuse
+	def initialize mnt, kernelopt, libopt
+		super mnt, kernelopt, libopt
+		@root = {}
+	end
+
+	def readdir ctx, path, filler, offset, ffi
+		rdebug  ctx, path, filler, offset, ffi
+		d = @root.search path
+		if d.isdir then
+			d.each do |name,obj| 
+				stat = Stat.new
+				stat.uid   = obj.uid
+				stat.gid   = obj.gid
+				stat.mode  = obj.mode
+				stat.size  = obj.size
+				stat.atime = obj.actime
+				stat.mtime = obj.modtime
+				filler.push name, stat, 0
+			end
+		else
+			raise Errno::ENOTDIR.new path
+		end
+	end
+
+	def statfs ctx,path
+		rdebug ctx, path
+		s = StatVfs.new
+		s.f_bsize    = 1024
+		s.f_frsize   = 1024
+		s.f_blocks   = 1000000
+		s.f_bfree    = 500000
+		s.f_bavail   = 990000
+		s.f_files    = 10000
+		s.f_ffree    = 9900
+		s.f_favail   = 9900
+		s.f_fsid     = 23423
+		s.f_flag     = 0
+		s.f_namemax  = 10000
+		return s
+	end
+
+end
+
+mountpoint = File.expand_path ARGV.shift
+
+sensefs = SenseFs.new mountpoint, ["allow_other"], ["debug"]
+#kernel:  default_permissions,allow_other,kernel_cache,large_read,direct_io
+#         max_read=N,fsname=NAME
+#library: debug,hard_remove
+
+Signal.trap("TERM") do
+	puts "got SIGTERM"
+  sensefs.exit
+  sensefs.unmount
+end
+
+Signal.trap("INT") do
+	puts "got SIGINT"
+  sensefs.exit
+  sensefs.unmount
+end
+
+begin
+  sensefs.loop
+rescue
+  print "Error:" + $!
+end
+
