@@ -7,10 +7,16 @@ SenseFS requires 'rfuse-ng' rubygem
 
  gem install rfuse-ng -v=0.4.0
 
-== Main idea
+== Description
 
-A file can exist at multiple locations. And as long as it is the same file, its
-metadata should be the same everywhere.
+SenseFs is toy-project and a naive approach to semantic filesystems.
+
+The main idea is that a file can exist at multiple locations... and as long as
+it is the same file, its metadata should be the same everywhere.
+
+The other thing is that using a filesystem with semantic information should not
+require more than the usual filesystem-accessing tools (your favorite
+filemanager, command line or whatever).
 
 
 == Storage of files
@@ -27,3 +33,7 @@ A file should keep a link to each of its references
 ==== Storage of directories
 
 ==== Semantic requests
+
+= Other interesting projects
+
+http://www.tagsistant.net/
