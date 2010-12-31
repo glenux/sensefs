@@ -1,0 +1,29 @@
+
+= SenseFS
+
+== Requirements
+
+SenseFS requires 'rfuse-ng' rubygem 
+
+    gem install rfuse-ng -v=0.4.0
+
+== Main idea
+
+A file can exist at multiple locations. And as long as it is the same file, its
+metadata should be the same everywhere.
+
+
+== Storage of files
+
+A file is a sequence of data "chunks" of (at most) a given size. 
+Each one of these "chunks" is identified by a hash.
+
+A file should keep a link to each of its references
+
+=== File creation
+
+=== File modification
+
+==== Storage of directories
+
+==== Semantic requests

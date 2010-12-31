@@ -1,6 +1,0 @@
-
-==== Requirements ====
-
-SenseFS requires 'rfuse-ng' rubygem 
-
-    gem install rfuse-ng -v=0.4.0
