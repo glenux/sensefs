@@ -52,4 +52,6 @@ A file should keep a link to each of its references
 
 == Related projects
 
-* http://www.tagsistant.net/
+* Tagsistant: http://www.tagsistant.net/
+* TagFS: http://code.google.com/p/tagfs/
+
