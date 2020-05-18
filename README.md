@@ -1,13 +1,13 @@
 
-= SenseFS
+# SenseFS
 
-== Requirements
+## Requirements
 
 SenseFS requires 'rfuse-ng' rubygem 
 
  gem install rfuse-ng -v=0.4.0
 
-== Description
+## Description
 
 SenseFs is toy-project and a naive approach to semantic filesystems. It was
 essentially inspired by Tx0's TagSistant project.
@@ -20,12 +20,11 @@ require more than the usual filesystem-accessing tools (your favorite
 filemanager, command line or whatever).
 
 
-== Roadmap 
+## Roadmap 
 
-release 1.0
-# file storage
-# support for simple tags
-# tags should be accessible via xattr
+* file storage
+* support for simple tags
+* tags should be accessible via xattr
 
 == Storage of files
 
@@ -42,16 +41,15 @@ A file should keep a link to each of its references
  storage
   |-- files
 
-=== File creation
+### File creation
 
-=== File modification
+### File modification
 
-==== Storage of directories
+### Storage of directories
 
-==== Semantic requests
+### Semantic requests
 
-== Related projects
+## Related projects
 
 * Tagsistant: http://www.tagsistant.net/
 * TagFS: http://code.google.com/p/tagfs/
-
